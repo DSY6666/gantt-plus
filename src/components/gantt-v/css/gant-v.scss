@@ -1,0 +1,176 @@
+//顶部栏的高度
+$topBarHeight: 45px;
+//顶部栏的颜色
+$topBarColor: linear-gradient(to bottom, #ebecef, #f1f1f1);
+//左边侧边栏的宽度
+$leftSideWidth: 500px;
+//表中列表头的高度
+$tableHeadHeight: 60px;
+//表中列表头的颜色
+$tableHeadColor: #9c9db6;
+//表中左边侧边栏的背景色
+$tableLeftColor: #f8fafa;
+//表中列表头的字体颜色
+$tableHeadFontColor: #ffffff;
+//表中边框的颜色
+$tableBorderColor: #d1d1d1;
+//表的一行被激活后的颜色
+$tableRowActiveColor: rgba(255, 215, 0, 0.15);
+//状态颜色
+$typeBgColor0: #20c200; // 运行
+$typeTextColor0: #ffffff;
+$typeBgColor1: #149be9; // 生产
+$typeTextColor1: #ffffff;
+$typeBgColor2: #c2c1bf; // 停机
+$typeTextColor2: #ffffff;
+$typeBgColor3: #ff0000; // 检修
+$typeTextColor3: #ffffff;
+
+.gantt-grab {
+  cursor: grab;
+}
+.gantt-grabbing {
+  cursor: grabbing;
+}
+
+.gantt-table {
+  .gantt-head {
+    width: 100%;
+    height: $topBarHeight;
+
+    .gantt-fixed {
+      position: fixed;
+      top: 0px;
+      left: 0;
+      width: 100%;
+      height: $topBarHeight;
+
+      background-image: $topBarColor;
+      .gantt-head {
+        padding-left: 15px;
+        font-weight: bold;
+        line-height: $topBarHeight;
+        color: $tableHeadColor;
+        display: flex;
+      }
+    }
+  }
+
+  .gantt-box {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - #{$topBarHeight});
+    .left {
+      width: $leftSideWidth;
+      overflow-y: hidden;
+      overflow-x: scroll;
+      .head {
+        height: $tableHeadHeight;
+        position: relative;
+        z-index: 3;
+        .head-box {
+          background-color: $tableHeadColor;
+          height: $tableHeadHeight;
+          color: $tableHeadFontColor;
+          width: 100%;
+        }
+      }
+      .left-box {
+        transition: transform 0.3s;
+        background-color: $tableLeftColor;
+      }
+    }
+
+    .right {
+      width: calc(100% - #{$leftSideWidth});
+      .head {
+        height: $tableHeadHeight;
+        .transition-transForm {
+          transition: transform 0.3s;
+        }
+        .head-box {
+          overflow: hidden; //transform 移动出的东西 隐藏
+          box-sizing: border-box;
+          color: $tableHeadFontColor;
+          background-color: $tableHeadColor;
+          height: $tableHeadHeight;
+          z-index: 2;
+        }
+      }
+
+      .content {
+        height: calc(100vh - #{$topBarHeight} - #{$tableHeadHeight});
+        overflow-x: auto;
+        .gantt-grid {
+          display: inline-block;
+          overflow: hidden;
+          z-index: 1;
+
+          .gantt-row-relative {
+            position: relative;
+            transition: background-color 0.2s;
+            &.gantt-row-active {
+              background-color: $tableRowActiveColor;
+            }
+            //时间块的样式
+            .time-block {
+              position: absolute;
+              height: 40px;
+              line-height: 40px;
+              padding-left: 10px;
+              padding-right: 10px;
+              background-color: red;
+              // border-radius: 4px;
+              z-index: 3;
+              color: #ffffff;
+              font-size: 12px !important;
+              border: 1px solid #e3e3e3;
+              box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2);
+
+              &.block-type-0 {
+                background-color: $typeBgColor0;
+                color: $typeTextColor0;
+              }
+              &.block-type-1 {
+                background-color: $typeBgColor1;
+                color: $typeTextColor1;
+              }
+              &.block-type-2 {
+                background-color: $typeBgColor2;
+                color: $typeTextColor2;
+              }
+              &.block-type-3 {
+                background-color: $typeBgColor3;
+                color: $typeTextColor3;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.text-line-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.text-line-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.text-line-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
